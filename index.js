@@ -1,0 +1,31 @@
+import fs from "fs";
+import path from "path";
+import { createFileSync, sendResponse } from "./utils.js";
+
+// Change the sdk import to npm (currently for testing local path is given)
+import { functions } from "../../../node-blox-sdk/index.js";
+
+/**
+ * List todo request hanlder
+ * @param {*} req
+ * @param {*} res
+ */
+const listTodos = (req, res) => {
+  try {
+    const DB_FILE = path.resolve(process.env.DB_FILE_PATH);
+    createFileSync(DB_FILE);
+    const data = fs.readFileSync(DB_FILE, { encoding: "utf8", flag: "r" });
+    const resData = JSON.parse(data || "[]");
+    console.log("Response data:\n", resData);
+    console.log("\n");
+    sendResponse(res, 200, resData);
+  } catch (e) {
+    console.log(e);
+    sendResponse(res, 500, { status: "failed" });
+  }
+};
+
+/**
+ * Run the function using node-blox-sdk
+ */
+functions.run(listTodos);
