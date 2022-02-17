@@ -3,7 +3,7 @@ import path from "path";
 import { createFileSync, sendResponse } from "./utils.js";
 
 // Change the sdk import to npm (currently for testing local path is given)
-import { functions } from "../../../node-blox-sdk/index.js";
+// import { functions } from "../../../node-blox-sdk/index.js";
 
 /**
  * List todo request hanlder
@@ -24,8 +24,8 @@ const listTodos = (req, res) => {
     sendResponse(res, 500, { status: "failed" });
   }
 };
+export default { listTodos }
 
 /**
  * Run the function using node-blox-sdk
  */
-functions.run(listTodos);
