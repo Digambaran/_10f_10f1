@@ -25,7 +25,7 @@ const listTodos = (req, res) => {
     sendResponse(res, 200, resData);
   } catch (e) {
     console.log(e);
-    sendResponse(res, 500, { status: "failed" });
+    sendResponse(res, 500, { status: "failed", errMsg: e.message});
   }
 };
 export default { listTodos }
